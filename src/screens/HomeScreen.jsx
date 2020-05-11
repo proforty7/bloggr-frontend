@@ -52,7 +52,8 @@ const StyledNavbar = styled.nav`
   top: 0;
   width: 60%;
   display: grid;
-  grid-template-columns: 1fr 8fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 8fr auto auto auto;
+  grid-gap: 2em;
   align-items: center;
   text-align: right;
 
@@ -94,6 +95,24 @@ const StyledContent = styled.div`
 `;
 
 const StyledLink = styled(Link)`
+  position: relative;
   text-decoration: none;
   color: #000;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: #27ae60;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover::before {
+    visibility: visible;
+    width: 100%;
+  }
 `;
