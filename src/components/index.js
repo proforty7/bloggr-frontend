@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Column = styled.div`
-  height: 100%;
   width: 60%;
   margin: auto;
 `;
@@ -21,10 +20,10 @@ export const Button = styled.button`
     content: "";
     position: absolute;
     width: 0;
-    height: 3px;
+    height: 5px;
     bottom: 0;
     left: 0;
-    background-color: #fff;
+    background-color: #bdffd9;
     visibility: hidden;
     transition: all 0.3s ease-in-out;
   }

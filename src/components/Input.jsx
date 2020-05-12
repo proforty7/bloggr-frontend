@@ -24,7 +24,7 @@ const InputGroup = styled.div`
     padding: 0.5em 0;
     font-size: 1em;
     border: 0;
-    background-color: #e3ffef;
+    background-color: #bdffd9;
     font-family: Poppins;
 
     &:focus {

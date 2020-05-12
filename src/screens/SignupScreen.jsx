@@ -1,15 +1,33 @@
 import React from "react";
 import styled from "styled-components";
-import { Column, Card, StyledField } from "../components";
 import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import { Column, Card, Button } from "../components";
 import Input from "../components/Input";
+import Checkbox from "../components/Checkbox";
 
 const SignupScreen = () => {
+  const accountValidator = Yup.object().shape({
+    email: Yup.string().email("Invalid Email").required("Email is required"),
+    password: Yup.string()
+      .min(4, "Password is too short")
+      .required("Password is required"),
+    confirmPassword: Yup.string().test(
+      "password-match",
+      "Passwords do not match",
+      function (value) {
+        return this.parent.password === value;
+      }
+    ),
+  });
+
+  const handleSubmit = (values) => {};
+
   return (
     <StyledContainer>
-      <Column>
+      <Column style={{ height: "100%" }}>
         <StyledInnerContainer>
-          <Card style={{ width: "60%" }}>
+          <Card style={{ width: "40%" }}>
             <StyledContent>
               <h1>CREATE ACCOUNT</h1>
               <div className="form">
@@ -20,6 +38,7 @@ const SignupScreen = () => {
                     confirmPassword: "",
                     agree: false,
                   }}
+                  validationSchema={accountValidator}
                 >
                   {({ handleChange }) => (
                     <Form>
@@ -38,12 +57,18 @@ const SignupScreen = () => {
                         name="confirmPassword"
                         onChange={handleChange}
                       />
-                      {/* <Input
+                      <Checkbox
                         labelText="I agree to terms and conditions"
                         name="agree"
-                        type="radio"
                         onChange={handleChange}
-                      /> */}
+                      />
+                      <Button>
+                        <div>Continue</div>
+                        <img
+                          src={require("../assets/arrow-right.png")}
+                          alt="arrow-right"
+                        />
+                      </Button>
                     </Form>
                   )}
                 </Formik>
@@ -90,6 +115,21 @@ const StyledContent = styled.div`
 
     input {
       margin-bottom: 1em;
+    }
+  }
+
+  Button {
+    margin-top: 1em;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: center;
+
+    div {
+      flex: 1;
     }
   }
 `;
