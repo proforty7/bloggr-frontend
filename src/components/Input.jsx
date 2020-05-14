@@ -20,8 +20,7 @@ const InputGroup = styled.div`
   }
 
   input {
-    width: 100%;
-    padding: 0.5em 0;
+    padding: 0.5em;
     font-size: 1em;
     border: 0;
     background-color: #bdffd9;

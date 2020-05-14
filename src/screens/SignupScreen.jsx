@@ -12,22 +12,23 @@ const SignupScreen = () => {
     password: Yup.string()
       .min(4, "Password is too short")
       .required("Password is required"),
-    confirmPassword: Yup.string().test(
-      "password-match",
-      "Passwords do not match",
-      function (value) {
+    confirmPassword: Yup.string()
+      .required("Password is required")
+      .test("password-match", "Passwords do not match", function (value) {
         return this.parent.password === value;
-      }
-    ),
+      }),
+    agree: Yup.bool().oneOf([true], "You need to agree to terms to continue."),
   });
 
-  const handleSubmit = (values) => {};
+  const handleSubmit = (values) => {
+    console.log(values);
+  };
 
   return (
     <StyledContainer>
       <Column style={{ height: "100%" }}>
         <StyledInnerContainer>
-          <Card style={{ width: "40%" }}>
+          <Card>
             <StyledContent>
               <h1>CREATE ACCOUNT</h1>
               <div className="form">
@@ -38,24 +39,28 @@ const SignupScreen = () => {
                     confirmPassword: "",
                     agree: false,
                   }}
+                  onSubmit={handleSubmit}
                   validationSchema={accountValidator}
                 >
                   {({ handleChange }) => (
-                    <Form>
+                    <StyledForm>
                       <Input
                         labelText="Email"
                         name="email"
                         onChange={handleChange}
+                        style={{ marginBottom: "1em" }}
                       />
                       <Input
                         labelText="Password"
                         name="password"
                         onChange={handleChange}
+                        style={{ marginBottom: "1em" }}
                       />
                       <Input
                         labelText="Confirm Password"
                         name="confirmPassword"
                         onChange={handleChange}
+                        style={{ marginBottom: "1em" }}
                       />
                       <Checkbox
                         labelText="I agree to terms and conditions"
@@ -69,7 +74,7 @@ const SignupScreen = () => {
                           alt="arrow-right"
                         />
                       </Button>
-                    </Form>
+                    </StyledForm>
                   )}
                 </Formik>
               </div>
@@ -109,13 +114,6 @@ const StyledContent = styled.div`
   }
 
   .form {
-    label {
-      margin-bottom: 5px;
-    }
-
-    input {
-      margin-bottom: 1em;
-    }
   }
 
   Button {
@@ -131,5 +129,15 @@ const StyledContent = styled.div`
     div {
       flex: 1;
     }
+  }
+`;
+
+const StyledForm = styled(Form)`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 5px;
   }
 `;
