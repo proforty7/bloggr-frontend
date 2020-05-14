@@ -5,8 +5,12 @@ import * as Yup from "yup";
 import { Column, Card, Button } from "../components";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
+import { useDispatch } from "react-redux";
+import { setSignupFormValues } from "../actions/authActions";
 
 const SignupScreen = () => {
+  const dispatch = useDispatch();
+
   const accountValidator = Yup.object().shape({
     email: Yup.string().email("Invalid Email").required("Email is required"),
     password: Yup.string()
@@ -21,7 +25,7 @@ const SignupScreen = () => {
   });
 
   const handleSubmit = (values) => {
-    console.log(values);
+    dispatch(setSignupFormValues(values));
   };
 
   return (
