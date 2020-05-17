@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Column, Card, Button } from "../components";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
-import { useDispatch } from "react-redux";
-import { setSignupFormValues } from "../actions/authActions";
+import { authApi } from "../api";
 
 const SignupScreen = () => {
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const accountValidator = Yup.object().shape({
     email: Yup.string().email("Invalid Email").required("Email is required"),
@@ -25,7 +24,11 @@ const SignupScreen = () => {
   });
 
   const handleSubmit = (values) => {
-    dispatch(setSignupFormValues(values));
+    const { email, password } = values;
+    authApi.post("/signup", {
+      email,
+      password,
+    });
   };
 
   return (
