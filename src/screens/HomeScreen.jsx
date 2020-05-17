@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Column, Button } from "../components";
+import { Column } from "../components";
 import { Link } from "react-router-dom";
+import Button from "../components/Button";
 
 const HomeScreen = () => {
   return (

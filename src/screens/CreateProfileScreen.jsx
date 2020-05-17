@@ -7,11 +7,8 @@ import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
 import { authApi } from "../api";
 import Button from "../components/Button";
-import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
 
-const SignupScreen = () => {
-  const history = useHistory();
+const CreateProfileScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const accountValidator = Yup.object().shape({
@@ -30,20 +27,11 @@ const SignupScreen = () => {
   const handleSubmit = async (values) => {
     const { email, password } = values;
     setLoading(true);
-    try {
-      await authApi.post("/signup", {
-        email,
-        password,
-      });
-      await authApi.post("/login", {
-        email,
-        password,
-      });
-      setLoading(false);
-      history.push("/create-profile");
-    } catch (err) {
-      toast.error(err.response.data.message);
-    }
+    await authApi.post("/signup", {
+      email,
+      password,
+    });
+    setLoading(false);
   };
 
   return (
@@ -111,7 +99,7 @@ const SignupScreen = () => {
   );
 };
 
-export default SignupScreen;
+export default CreateProfileScreen;
 
 const StyledContainer = styled.div`
   height: 100vh;
