@@ -9,9 +9,12 @@ import { authApi } from "../api";
 import Button from "../components/Button";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../actions/authActions";
 
 const SignupScreen = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   const accountValidator = Yup.object().shape({
@@ -35,10 +38,15 @@ const SignupScreen = () => {
         email,
         password,
       });
-      await authApi.post("/login", {
+      const res = await authApi.post("/signin", {
         email,
         password,
       });
+
+      if (res.data.success) {
+        dispatch(setUser({ ...res.data.user, ...res.data.token }));
+        localStorage.setItem("bloggrToken", res.data.token);
+      }
       setLoading(false);
       history.push("/create-profile");
     } catch (err) {
