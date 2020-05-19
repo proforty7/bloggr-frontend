@@ -4,11 +4,10 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Column, Card, StyledLink } from "../components";
 import Input from "../components/Input";
-import Checkbox from "../components/Checkbox";
 import { authApi } from "../api";
 import Button from "../components/Button";
 import { toast } from "react-toastify";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../actions/authActions";
 
