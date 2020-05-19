@@ -44,7 +44,7 @@ const SignupScreen = () => {
       });
 
       if (res.data.success) {
-        dispatch(setUser({ ...res.data.user, ...res.data.token }));
+        dispatch(setUser({ ...res.data.user, token: res.data.token }));
         localStorage.setItem("bloggrToken", res.data.token);
       }
       setLoading(false);
@@ -129,6 +129,7 @@ const StyledContainer = styled.div`
       rgba(39, 174, 96, 0.35) 100%
     ),
     url(${require("../assets/signup1.jpg")});
+  background-size: cover;
 `;
 
 const StyledInnerContainer = styled.div`

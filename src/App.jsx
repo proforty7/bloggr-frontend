@@ -32,7 +32,7 @@ const App = () => {
     const fetchUser = async () => {
       const token = localStorage.getItem("bloggrToken");
       if (token) {
-        const res = await privateApi.get("/auth");
+        const res = await privateApi(token).get("/auth");
         dispatch(setUser({ ...res.data.user, token: res.data.token }));
       }
     };

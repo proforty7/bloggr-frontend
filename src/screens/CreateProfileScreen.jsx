@@ -4,34 +4,51 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Column, Card } from "../components";
 import Input from "../components/Input";
-import Checkbox from "../components/Checkbox";
-import { authApi } from "../api";
+import { privateApi } from "../api";
 import Button from "../components/Button";
+import { useHistory } from "react-router-dom";
 
 const CreateProfileScreen = () => {
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem("bloggrToken");
 
-  const accountValidator = Yup.object().shape({
-    email: Yup.string().email("Invalid Email").required("Email is required"),
-    password: Yup.string()
-      .min(4, "Password is too short")
-      .required("Password is required"),
-    confirmPassword: Yup.string()
-      .required("Password is required")
-      .test("password-match", "Passwords do not match", function (value) {
-        return this.parent.password === value;
+  const profileValidator = Yup.object().shape({
+    firstName: Yup.string()
+      .required("First Name is required")
+      .min(3, "First Name is too short"),
+    lastName: Yup.string()
+      .required("Last Name is required")
+      .min(3, "Last Name is too short"),
+    username: Yup.string()
+      .required()
+      .test("username-test", "Username is already taken", async function (
+        value
+      ) {
+        try {
+          const res = await privateApi(token).get(`/profile/${value}`);
+          if (!res.data.success) return false;
+          return true;
+        } catch (err) {
+          if (err.response.status === 404) {
+            return true;
+          }
+          return false;
+        }
       }),
-    agree: Yup.bool().oneOf([true], "You need to agree to terms to continue."),
   });
 
   const handleSubmit = async (values) => {
-    const { email, password } = values;
+    const { firstName, lastName, username, gender } = values;
     setLoading(true);
-    await authApi.post("/signup", {
-      email,
-      password,
+    await privateApi(token).post("/profile", {
+      firstName,
+      lastName,
+      username,
+      gender,
     });
     setLoading(false);
+    history.push("/dashboard");
   };
 
   return (
@@ -40,46 +57,55 @@ const CreateProfileScreen = () => {
         <StyledInnerContainer>
           <Card>
             <StyledContent>
-              <h1>CREATE ACCOUNT</h1>
+              <h1>CREATE PROFILE</h1>
               <div className="form">
                 <Formik
                   initialValues={{
-                    email: "",
-                    password: "",
-                    confirmPassword: "",
-                    agree: false,
+                    firstName: "",
+                    lastName: "",
+                    username: "",
+                    gender: "m",
                   }}
                   onSubmit={handleSubmit}
-                  validationSchema={accountValidator}
+                  validationSchema={profileValidator}
                 >
                   {({ handleChange }) => (
                     <StyledForm>
                       <Input
-                        labelText="Email"
-                        name="email"
-                        type="email"
+                        labelText="First Name"
+                        name="firstName"
+                        type="text"
                         onChange={handleChange}
                         style={{ marginBottom: "1em" }}
                       />
                       <Input
-                        labelText="Password"
-                        name="password"
-                        type="password"
+                        labelText="Last Name"
+                        name="lastName"
+                        type="text"
                         onChange={handleChange}
                         style={{ marginBottom: "1em" }}
                       />
                       <Input
-                        labelText="Confirm Password"
-                        name="confirmPassword"
-                        type="password"
+                        labelText="Username"
+                        name="username"
+                        type="text"
                         onChange={handleChange}
                         style={{ marginBottom: "1em" }}
                       />
-                      <Checkbox
-                        labelText="I agree to terms and conditions"
-                        name="agree"
+                      <Input
+                        labelText="Gender"
+                        name="gender"
+                        as="select"
                         onChange={handleChange}
-                      />
+                        style={{ marginBottom: "1em" }}
+                      >
+                        <option key="m" value="m">
+                          Male
+                        </option>
+                        <option key="f" value="f">
+                          Female
+                        </option>
+                      </Input>
                       <Button loading={loading}>
                         <div>Continue</div>
                         <img
@@ -108,7 +134,8 @@ const StyledContainer = styled.div`
       rgba(39, 174, 96, 0.35) 0%,
       rgba(39, 174, 96, 0.35) 100%
     ),
-    url(${require("../assets/signup1.jpg")});
+    url(${require("../assets/create-profile-bg.jpg")});
+  background-size: cover;
 `;
 
 const StyledInnerContainer = styled.div`
@@ -152,5 +179,9 @@ const StyledForm = styled(Form)`
 
   label {
     margin-bottom: 5px;
+  }
+
+  select {
+    width: 100%;
   }
 `;
