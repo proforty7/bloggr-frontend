@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { Column, Card } from "../components";
+import { Column, Card, StyledLink } from "../components";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
 import { authApi } from "../api";
@@ -107,6 +107,9 @@ const SignupScreen = () => {
                           alt="arrow-right"
                         />
                       </Button>
+                      <StyledLink to="/signin">
+                        Already registered? Click here
+                      </StyledLink>
                     </StyledForm>
                   )}
                 </Formik>

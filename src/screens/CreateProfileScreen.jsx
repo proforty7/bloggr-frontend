@@ -21,7 +21,8 @@ const CreateProfileScreen = () => {
       .required("Last Name is required")
       .min(3, "Last Name is too short"),
     username: Yup.string()
-      .required()
+      .required("Username is required")
+      .min(4, "Username is too short")
       .test("username-test", "Username is already taken", async function (
         value
       ) {

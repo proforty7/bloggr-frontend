@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Column } from "../components";
+import { Column, StyledLink } from "../components";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
 
@@ -92,28 +92,5 @@ const StyledContent = styled.div`
 
   Button {
     margin-top: 2em;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  position: relative;
-  text-decoration: none;
-  color: #000;
-
-  &::before {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 3px;
-    bottom: 0;
-    left: 0;
-    background-color: #27ae60;
-    visibility: hidden;
-    transition: all 0.3s ease-in-out;
-  }
-
-  &:hover::before {
-    visibility: visible;
-    width: 100%;
   }
 `;
