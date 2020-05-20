@@ -7,8 +7,11 @@ import Input from "../components/Input";
 import { privateApi } from "../api";
 import Button from "../components/Button";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setProfile } from "../actions/authActions";
 
 const CreateProfileScreen = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("bloggrToken");
@@ -42,12 +45,15 @@ const CreateProfileScreen = () => {
   const handleSubmit = async (values) => {
     const { firstName, lastName, username, gender } = values;
     setLoading(true);
-    await privateApi(token).post("/profile", {
+    const res = await privateApi(token).post("/profile", {
       firstName,
       lastName,
       username,
       gender,
     });
+    if (res.data.success) {
+      dispatch(setProfile(res.data.profile));
+    }
     setLoading(false);
     history.push("/dashboard");
   };

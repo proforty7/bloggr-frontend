@@ -6,3 +6,10 @@ export const setUser = (values) => {
     payload: values,
   };
 };
+
+export const setProfile = (values) => {
+  return {
+    type: ACTION_TYPE.SET_PROFILE,
+    payload: values,
+  };
+};
