@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
 import SigninScreen from "./screens/SigninScreen";
@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { privateApi } from "./api";
 import { setUser } from "./actions/authActions";
 import DashboardScreen from "./screens/DashboardScreen";
+import { toast } from "react-toastify";
 
 const PublicRoute = ({ user, ...props }) => {
   if (user) {
@@ -27,17 +28,29 @@ const PrivateRoute = ({ user, ...props }) => {
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
+
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchUser = async () => {
-      const token = localStorage.getItem("bloggrToken");
-      if (token) {
-        const res = await privateApi(token).get("/auth");
-        dispatch(setUser({ ...res.data.user, token: res.data.token }));
+      try {
+        const token = localStorage.getItem("bloggrToken");
+        if (token) {
+          const res = await privateApi(token).get("/auth");
+          dispatch(setUser({ ...res.data.user, token: res.data.token }));
+        }
+      } catch (err) {
+        toast.error("Something went wrong!");
+      } finally {
+        setLoading(false);
       }
     };
     fetchUser();
   }, [dispatch]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <BrowserRouter>
