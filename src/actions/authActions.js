@@ -13,3 +13,10 @@ export const setProfile = (values) => {
     payload: values,
   };
 };
+
+export const setBlog = (values) => {
+  return {
+    type: ACTION_TYPE.SET_BLOG,
+    payload: values,
+  };
+};

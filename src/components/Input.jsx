@@ -21,31 +21,18 @@ const InputGroup = styled.div`
     display: block;
   }
 
-  input {
-    padding: 0.5em;
-    font-size: 1em;
-    border: 0;
-    background-color: #bdffd9;
-    font-family: Poppins;
-
-    &:focus {
-      border: 1px solid #27ae60;
-    }
-  }
-
-  select {
-    padding: 0.5em;
-    font-size: 1em;
-    border: 0;
-    background-color: #bdffd9;
-    font-family: Poppins;
-
-    &:focus {
-      border: 1px solid #27ae60;
-    }
-  }
-
+  input,
+  select,
   textarea {
+    padding: 0.5em;
+    font-size: 1em;
+    border: 0;
+    background-color: #bdffd9;
+    font-family: Poppins;
+
+    &:focus {
+      border: 1px solid #27ae60;
+    }
   }
 `;
 

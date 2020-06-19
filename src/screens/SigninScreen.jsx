@@ -38,6 +38,8 @@ const SigninScreen = () => {
       history.push("/dashboard");
     } catch (err) {
       toast.error(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
