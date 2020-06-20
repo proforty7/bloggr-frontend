@@ -1,21 +1,20 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { Card, Column } from "../components";
-import { useSelector, useDispatch } from "react-redux";
 import Button from "../components/Button";
 import { Form, Formik } from "formik";
-import Input from "../components/Input";
 import { privateApi } from "../api";
-import { setBlog } from "../actions/authActions";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
+import MyEditor from "../components/Editor";
+import { toast } from "react-toastify";
 
 const CreatePostScreen = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("bloggrToken");
+  const [content, setContent] = React.useState("");
 
   const postValidator = Yup.object().shape({
     title: Yup.string().required("Title is required"),
@@ -24,21 +23,23 @@ const CreatePostScreen = () => {
   });
 
   const handleSubmit = async (values) => {
-    // const { name, type, description, tags } = values;
-    // setLoading(true);
-    // const res = await privateApi(token).post("/blog", {
-    //     name,
-    //     type,
-    //     description,
-    //     tags: tags.trim().split(","),
-    // });
-    // if (res.data.success) {
-    //     dispatch(setBlog(res.data.blog));
-    // }
-    // setLoading(false);
+    const { title, subtitle } = values;
+    setLoading(true);
+    try {
+      await privateApi(token).post("/posts", {
+        title,
+        subtitle,
+        content,
+      });
+      toast.success("Published!");
+      history.goBack();
+    } catch (err) {
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const user = useSelector((state) => state.auth.user);
   return (
     <StyledContainer>
       <Navbar />
@@ -63,14 +64,17 @@ const CreatePostScreen = () => {
                         className="title"
                         placeholder="Title"
                         type="text"
+                        name="title"
                         onChange={handleChange}
                       />
                       <input
                         className="subtitle"
                         placeholder="Subtitle"
                         type="text"
+                        name="subtitle"
                         onChange={handleChange}
                       />
+                      <MyEditor content={content} setContent={setContent} />
                       <Button loading={loading}>
                         <div>Continue</div>
                         <img
@@ -103,47 +107,8 @@ const StyledContainer = styled.div`
   background-size: cover;
 `;
 
-const StyledGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 2rem;
-  margin-top: 2rem;
-`;
-
-const StyledCard = styled.div`
-  background-color: #fff;
-  padding: 2rem;
-  height: 200px;
-  overflow: hidden;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.05);
-    transition: 1s all ease-out;
-  }
-
-  .head {
-    font-size: 2rem;
-  }
-
-  .btn {
-    font-size: 3rem;
-  }
-
-  ${(props) =>
-    props.dashed &&
-    css`
-      border: 3px dashed #27ae60;
-    `}
-`;
-
 const StyledBlogContainer = styled.div`
-  height: calc(100vh - 64px);
+  min-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -153,7 +118,7 @@ const StyledBlogContainer = styled.div`
 const StyledContent = styled.div`
   padding: 2em;
 
-  h1 {
+  > h1 {
     text-align: center;
   }
 

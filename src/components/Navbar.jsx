@@ -34,6 +34,7 @@ export default Navbar;
 
 const StyledContainer = styled.nav`
   position: sticky;
+  z-index: 100;
   top: 0;
   left: 0;
   right: 0;
