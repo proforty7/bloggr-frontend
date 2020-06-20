@@ -7,9 +7,10 @@ import Button from "../components/Button";
 import { Form, Formik } from "formik";
 import Input from "../components/Input";
 import { privateApi } from "../api";
-import { setProfile, setBlog } from "../actions/authActions";
+import { setBlog } from "../actions/authActions";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 
 const DashboardScreen = () => {
   const dispatch = useDispatch();
@@ -27,16 +28,21 @@ const DashboardScreen = () => {
   const handleSubmit = async (values) => {
     const { name, type, description, tags } = values;
     setLoading(true);
-    const res = await privateApi(token).post("/blog", {
-      name,
-      type,
-      description,
-      tags: tags.trim().split(","),
-    });
-    if (res.data.success) {
-      dispatch(setBlog(res.data.blog));
+    try {
+      const res = await privateApi(token).post("/blog", {
+        name,
+        type,
+        description,
+        tags: tags.trim().split(","),
+      });
+      if (res.data.success) {
+        dispatch(setBlog(res.data.blog));
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const user = useSelector((state) => state.auth.user);
@@ -46,7 +52,7 @@ const DashboardScreen = () => {
       <Column>
         {user.profile.blog ? (
           <StyledGrid>
-            <StyledCard dashed>
+            <StyledCard dashed onClick={() => history.push("/create-post")}>
               <div className="head">Create New</div>
               <div className="btn">+</div>
             </StyledCard>

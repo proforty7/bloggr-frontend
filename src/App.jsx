@@ -9,6 +9,7 @@ import { privateApi } from "./api";
 import { setUser } from "./actions/authActions";
 import DashboardScreen from "./screens/DashboardScreen";
 import { toast } from "react-toastify";
+import CreatePostScreen from "./screens/CreatePostScreen";
 
 const PublicRoute = ({ user, ...props }) => {
   if (user) {
@@ -63,6 +64,11 @@ const App = () => {
         <PrivateRoute
           path="/dashboard"
           component={DashboardScreen}
+          user={user}
+        />
+        <PrivateRoute
+          path="/create-post"
+          component={CreatePostScreen}
           user={user}
         />
         <PublicRoute path="/signin" component={SigninScreen} user={user} />
