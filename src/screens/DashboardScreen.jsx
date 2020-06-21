@@ -8,6 +8,7 @@ import NoBlog from "../components/NoBlog";
 import { privateApi } from "../api";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useCallback } from "react";
 
 const DashboardScreen = () => {
   const history = useHistory();
@@ -30,6 +31,13 @@ const DashboardScreen = () => {
     fetchData();
   }, [token]);
 
+  const handlePostClick = useCallback(
+    (id) => {
+      history.push(`/posts/${id}`);
+    },
+    [history]
+  );
+
   const user = useSelector((state) => state.auth.user);
   return (
     <StyledContainer>
@@ -42,7 +50,10 @@ const DashboardScreen = () => {
               <div className="btn">+</div>
             </StyledCard>
             {posts.map((post) => (
-              <StyledCard>
+              <StyledCard
+                key={post._id}
+                onClick={() => handlePostClick(post._id)}
+              >
                 <div className="head">{post.title}</div>
                 <div className="subtitle">{post.subtitle}</div>
               </StyledCard>
