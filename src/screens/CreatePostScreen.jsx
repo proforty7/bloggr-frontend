@@ -76,7 +76,7 @@ const CreatePostScreen = () => {
                       />
                       <MyEditor content={content} setContent={setContent} />
                       <Button loading={loading}>
-                        <div>Continue</div>
+                        <div>Publish</div>
                         <img
                           src={require("../assets/arrow-right.png")}
                           alt="arrow-right"
