@@ -31,14 +31,13 @@ const SigninScreen = () => {
       });
 
       if (res.data.success) {
-        dispatch(setUser({ ...res.data.user, token: res.data.token }));
+        dispatch(setUser({ user: res.data.user, token: res.data.token }));
         localStorage.setItem("bloggrToken", res.data.token);
       }
       setLoading(false);
       history.push("/dashboard");
     } catch (err) {
       toast.error(err.response.data.message);
-    } finally {
       setLoading(false);
     }
   };

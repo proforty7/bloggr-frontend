@@ -11,17 +11,19 @@ import { toast } from "react-toastify";
 
 const DashboardScreen = () => {
   const history = useHistory();
-  const token = localStorage.getItem("bloggrToken");
+  const token = useSelector((state) => state.auth.token);
 
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const res = await privateApi(token).get("/posts");
-        setPosts(res.data.data.posts);
-      } catch (err) {
-        toast.error("Something went wrong");
+      if (token) {
+        try {
+          const res = await privateApi(token).get("/posts");
+          setPosts(res.data.data.posts);
+        } catch (err) {
+          toast.error("Something went wrong");
+        }
       }
     };
 

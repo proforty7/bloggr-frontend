@@ -44,7 +44,7 @@ const SignupScreen = () => {
       });
 
       if (res.data.success) {
-        dispatch(setUser({ ...res.data.user, token: res.data.token }));
+        dispatch(setUser({ user: res.data.user, token: res.data.token }));
         localStorage.setItem("bloggrToken", res.data.token);
       }
       setLoading(false);

@@ -38,7 +38,7 @@ const App = () => {
         const token = localStorage.getItem("bloggrToken");
         if (token) {
           const res = await privateApi(token).get("/auth");
-          dispatch(setUser({ ...res.data.user, token: res.data.token }));
+          dispatch(setUser({ user: res.data.user, token: res.data.token }));
         }
       } catch (err) {
         toast.error("Something went wrong!");

@@ -2,6 +2,7 @@ import * as ACTION_TYPE from "../actions/actionTypes";
 
 const INITIAL_STATE = {
   user: null,
+  token: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -9,7 +10,8 @@ export default (state = INITIAL_STATE, action) => {
     case ACTION_TYPE.SET_USER:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
+        token: action.payload.token,
       };
     case ACTION_TYPE.SET_PROFILE:
       return {
