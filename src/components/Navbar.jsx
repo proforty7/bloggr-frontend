@@ -10,7 +10,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("bloggrToken");
-    dispatch(setUser(null));
+    dispatch(setUser({ user: null, token: null }));
   };
 
   return (
