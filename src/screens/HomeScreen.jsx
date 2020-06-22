@@ -4,6 +4,7 @@ import { Column, StyledLink } from "../components";
 import Button from "../components/Button";
 
 const HomeScreen = () => {
+  console.log(process.env);
   return (
     <StyledContainer>
       <Column>
