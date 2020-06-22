@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/bloggr-frontend/static/css/main.e4fee53a.chunk.css",
-    "main.js": "/bloggr-frontend/static/js/main.12fc7194.chunk.js",
-    "main.js.map": "/bloggr-frontend/static/js/main.12fc7194.chunk.js.map",
+    "main.js": "/bloggr-frontend/static/js/main.bd8f0d96.chunk.js",
+    "main.js.map": "/bloggr-frontend/static/js/main.bd8f0d96.chunk.js.map",
     "runtime-main.js": "/bloggr-frontend/static/js/runtime-main.8185415d.js",
     "runtime-main.js.map": "/bloggr-frontend/static/js/runtime-main.8185415d.js.map",
     "static/css/2.c1463059.chunk.css": "/bloggr-frontend/static/css/2.c1463059.chunk.css",
     "static/js/2.6647e676.chunk.js": "/bloggr-frontend/static/js/2.6647e676.chunk.js",
     "static/js/2.6647e676.chunk.js.map": "/bloggr-frontend/static/js/2.6647e676.chunk.js.map",
     "index.html": "/bloggr-frontend/index.html",
-    "precache-manifest.dc5c85d4f8daa9f529f04ce217e993f5.js": "/bloggr-frontend/precache-manifest.dc5c85d4f8daa9f529f04ce217e993f5.js",
+    "precache-manifest.8bbc9a74779b778974fe6e215fc8da17.js": "/bloggr-frontend/precache-manifest.8bbc9a74779b778974fe6e215fc8da17.js",
     "service-worker.js": "/bloggr-frontend/service-worker.js",
     "static/css/2.c1463059.chunk.css.map": "/bloggr-frontend/static/css/2.c1463059.chunk.css.map",
     "static/css/main.e4fee53a.chunk.css.map": "/bloggr-frontend/static/css/main.e4fee53a.chunk.css.map",
@@ -26,6 +26,6 @@
     "static/css/2.c1463059.chunk.css",
     "static/js/2.6647e676.chunk.js",
     "static/css/main.e4fee53a.chunk.css",
-    "static/js/main.12fc7194.chunk.js"
+    "static/js/main.bd8f0d96.chunk.js"
   ]
 }
