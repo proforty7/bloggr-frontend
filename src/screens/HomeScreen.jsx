@@ -4,7 +4,6 @@ import { Column, StyledLink } from "../components";
 import Button from "../components/Button";
 
 const HomeScreen = () => {
-  console.log(process.env);
   return (
     <StyledContainer>
       <Column>
@@ -12,7 +11,6 @@ const HomeScreen = () => {
           <div className="logo">
             <img src={require("../assets/logo.png")} alt="logo" width="64" />
           </div>
-          <div>{process.env.REACT_APP_BASENAME}</div>
           <StyledLink to="#about" className="nav-item" id="about">
             About
           </StyledLink>
