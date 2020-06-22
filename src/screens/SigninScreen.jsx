@@ -35,7 +35,7 @@ const SigninScreen = () => {
         localStorage.setItem("bloggrToken", res.data.token);
       }
       setLoading(false);
-      history.push("/dashboard");
+      history.push(`/${process.env.REACT_APP_BASENAME}/dashboard`);
     } catch (err) {
       toast.error(err.response.data.message);
       setLoading(false);

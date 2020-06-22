@@ -18,9 +18,7 @@ const PublicRoute = ({ user, ...props }) => {
     return (
       <Redirect
         to={
-          user.profile
-            ? `/${baseName}/dashboard`
-            : `/${baseName}/create-profile`
+          user.profile ? `${baseName}/dashboard` : `${baseName}/create-profile`
         }
       />
     );
@@ -31,7 +29,7 @@ const PublicRoute = ({ user, ...props }) => {
 const PrivateRoute = ({ user, ...props }) => {
   const baseName = process.env.REACT_APP_BASENAME;
   if (!user) {
-    return <Redirect to={`/${baseName}/signin`} />;
+    return <Redirect to={`${baseName}/signin`} />;
   }
 
   return <Route {...props} />;

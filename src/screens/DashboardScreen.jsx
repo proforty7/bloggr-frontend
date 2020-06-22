@@ -33,7 +33,7 @@ const DashboardScreen = () => {
 
   const handlePostClick = useCallback(
     (id) => {
-      history.push(`/posts/${id}`);
+      history.push(`/${process.env.REACT_APP_BASENAME}/posts/${id}`);
     },
     [history]
   );
@@ -45,7 +45,12 @@ const DashboardScreen = () => {
       <Column>
         {user.profile.blog ? (
           <StyledGrid>
-            <StyledCard dashed onClick={() => history.push("/create-post")}>
+            <StyledCard
+              dashed
+              onClick={() =>
+                history.push(`/${process.env.REACT_APP_BASENAME}/create-post`)
+              }
+            >
               <div className="head">Create New</div>
               <div className="btn">+</div>
             </StyledCard>

@@ -55,7 +55,7 @@ const CreateProfileScreen = () => {
       dispatch(setProfile(res.data.profile));
     }
     setLoading(false);
-    history.push("/dashboard");
+    history.push(`/${process.env.REACT_APP_BASENAME}/dashboard`);
   };
 
   return (
