@@ -79,7 +79,7 @@ const App = () => {
         />
         <PublicRoute path="/signin" component={SigninScreen} user={user} />
         <PublicRoute path="/signup" component={SignupScreen} user={user} />
-        <PublicRoute path="/" exact component={HomeScreen} user={user} />
+        <PublicRoute path="/" component={HomeScreen} user={user} />
       </Switch>
     </BrowserRouter>
   );
