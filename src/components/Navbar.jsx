@@ -23,7 +23,9 @@ const Navbar = () => {
       />
       <div className="nav-menu"></div>
       <div className="nav-right">
-        <StyledLink to="/profile">{user.profile.username}</StyledLink>
+        <StyledLink to={`${process.env.REACT_APP_BASENAME}/profile`}>
+          {user.profile.username}
+        </StyledLink>
         <span onClick={handleLogout}>Logout</span>
       </div>
     </StyledContainer>
