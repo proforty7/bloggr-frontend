@@ -26,7 +26,7 @@ const HomeScreen = () => {
             className="nav-item"
             id="signup"
           >
-            Signup
+            Sign up
           </StyledLink>
         </StyledNavbar>
         <StyledContent>
