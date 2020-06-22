@@ -55,7 +55,7 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
+    <BrowserRouter>
       <Switch>
         <PrivateRoute
           path="/create-profile"
