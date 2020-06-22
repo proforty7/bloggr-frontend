@@ -48,7 +48,7 @@ const SignupScreen = () => {
         localStorage.setItem("bloggrToken", res.data.token);
       }
       setLoading(false);
-      history.push(`/${process.env.REACT_APP_BASENAME}/create-profile`);
+      history.push(`/create-profile`);
     } catch (err) {
       toast.error(err.response.data.message);
     }

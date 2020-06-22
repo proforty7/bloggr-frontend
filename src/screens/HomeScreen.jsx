@@ -14,18 +14,10 @@ const HomeScreen = () => {
           <StyledLink to="#about" className="nav-item" id="about">
             About
           </StyledLink>
-          <StyledLink
-            to={`/${process.env.REACT_APP_BASENAME}/signin`}
-            className="nav-item"
-            id="signin"
-          >
+          <StyledLink to={`/signin`} className="nav-item" id="signin">
             Signin
           </StyledLink>
-          <StyledLink
-            to={`/${process.env.REACT_APP_BASENAME}/signup`}
-            className="nav-item"
-            id="signup"
-          >
+          <StyledLink to={`/signup`} className="nav-item" id="signup">
             Sign up
           </StyledLink>
         </StyledNavbar>

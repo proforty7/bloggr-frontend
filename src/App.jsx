@@ -13,23 +13,15 @@ import CreatePostScreen from "./screens/CreatePostScreen";
 import PostScreen from "./screens/PostScreen";
 
 const PublicRoute = ({ user, ...props }) => {
-  const baseName = process.env.REACT_APP_BASENAME;
   if (user) {
-    return (
-      <Redirect
-        to={
-          user.profile ? `${baseName}/dashboard` : `${baseName}/create-profile`
-        }
-      />
-    );
+    return <Redirect to={user.profile ? `/dashboard` : `/create-profile`} />;
   }
   return <Route {...props} />;
 };
 
 const PrivateRoute = ({ user, ...props }) => {
-  const baseName = process.env.REACT_APP_BASENAME;
   if (!user) {
-    return <Redirect to={`${baseName}/signin`} />;
+    return <Redirect to={`/signin`} />;
   }
 
   return <Route {...props} />;
@@ -63,7 +55,7 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
+    <BrowserRouter>
       <Switch>
         <PrivateRoute
           path="/create-profile"
