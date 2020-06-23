@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { Card, Column } from "../components";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Button from "../components/Button";
 import { Form, Formik } from "formik";
 import Input from "../components/Input";
 import { privateApi } from "../api";
 import { setBlog } from "../actions/authActions";
-import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 
 const NoBlog = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("bloggrToken");
 
@@ -45,7 +43,6 @@ const NoBlog = () => {
     }
   };
 
-  const user = useSelector((state) => state.auth.user);
   return (
     <StyledContainer>
       <Navbar />

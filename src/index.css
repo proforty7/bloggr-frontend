@@ -15,3 +15,8 @@ code {
 .ql-container {
   min-height: 18em;
 }
+
+.content {
+  box-sizing: border-box;
+  padding: 2rem;
+}

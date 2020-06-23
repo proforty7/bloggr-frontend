@@ -1,40 +1,37 @@
 import React, { useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { Column } from "../components";
 import { useSelector } from "react-redux";
 import { useRouteMatch } from "react-router-dom";
-import NoBlog from "../components/NoBlog";
-import { privateApi } from "../api";
+import { publicApi } from "../api";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import parse from "html-react-parser";
 
 const PostScreen = () => {
   const match = useRouteMatch();
-  const token = useSelector((state) => state.auth.token);
-
+  const user = useSelector((state) => state.auth.user);
   const [post, setPost] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (token) {
-        try {
-          const { postId } = match.params;
-          const res = await privateApi(token).get(`/posts/${postId}`);
-          setPost(res.data.post);
-        } catch (err) {
-          toast.error("Something went wrong");
-        }
+      try {
+        const { postId } = match.params;
+        const res = await publicApi().get(`/posts/${postId}`);
+        setPost(res.data.post);
+      } catch (err) {
+        console.log(err);
+        toast.error("Something went wrong");
       }
     };
 
     fetchData();
-  }, [token, match.params]);
+  }, [match.params]);
 
   return (
     <StyledContainer>
-      <Navbar />
+      {user && <Navbar />}
       <Column
         style={{
           boxSizing: "border-box",
@@ -42,7 +39,6 @@ const PostScreen = () => {
           minHeight: "calc(100vh - 64px)",
           padding: "2rem",
           width: "100%",
-          textAlign: "center",
           wordWrap: "break-word",
           overflow: "scroll",
         }}
@@ -51,7 +47,7 @@ const PostScreen = () => {
           <>
             <StyledTitle>{post.title}</StyledTitle>
             <StyledSubtitle>{post.subtitle}</StyledSubtitle>
-            <StyledHTML>{parse(post.content)}</StyledHTML>
+            <StyledHTML className="content">{parse(post.content)}</StyledHTML>
           </>
         ) : (
           <div>Loading</div>
@@ -79,6 +75,11 @@ const StyledTitle = styled.h1`
   padding: 0;
   text-transform: uppercase;
   font-size: 4rem;
+  text-align: center;
 `;
-const StyledSubtitle = styled.p``;
-const StyledHTML = styled.p``;
+const StyledSubtitle = styled.p`
+  text-align: center;
+  font-style: italic;
+  font-size: 2rem;
+`;
+const StyledHTML = styled.div``;

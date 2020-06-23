@@ -72,11 +72,7 @@ const App = () => {
           component={CreatePostScreen}
           user={user}
         />
-        <PrivateRoute
-          path="/posts/:postId"
-          component={PostScreen}
-          user={user}
-        />
+        <Route path="/posts/:postId" component={PostScreen} />
         <PublicRoute path="/signin" component={SigninScreen} user={user} />
         <PublicRoute path="/signup" component={SignupScreen} user={user} />
         <PublicRoute path="/" component={HomeScreen} user={user} />
