@@ -71,6 +71,8 @@ export default DashboardScreen;
 
 const StyledContainer = styled.div`
   min-height: 100vh;
+  box-sizing: border-box;
+  padding-bottom: 2rem;
   background: linear-gradient(
       0deg,
       rgba(39, 174, 96, 0.29),
@@ -85,6 +87,11 @@ const StyledGrid = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2rem;
   margin-top: 2rem;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: auto;
+    text-align: center;
+  }
 `;
 
 const StyledCard = styled.div`

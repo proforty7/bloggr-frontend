@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 export const Column = styled.div`
   width: 60%;
   margin: auto;
+
+  @media screen and (max-width: 768px) {
+    width: 85%;
+  }
 `;
 
 export const Card = styled.div`
