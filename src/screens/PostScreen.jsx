@@ -76,10 +76,18 @@ const StyledTitle = styled.h1`
   text-transform: uppercase;
   font-size: 4rem;
   text-align: center;
+
+  @media screen and (max-width: 768px) {
+    font-size: 2.5rem;
+  }
 `;
 const StyledSubtitle = styled.p`
   text-align: center;
   font-style: italic;
   font-size: 2rem;
+
+  @media screen and (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 const StyledHTML = styled.div``;
