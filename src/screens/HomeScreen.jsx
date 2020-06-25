@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Column, StyledLink } from "../components";
 import Button from "../components/Button";
 
-const HomeScreen = () => {
+const HomeScreen = ({ history }) => {
   return (
     <StyledContainer>
       <Column>
@@ -23,7 +23,7 @@ const HomeScreen = () => {
         </StyledNavbar>
         <StyledContent>
           <h1>CREATE YOUR EXPERIENCE AND ENGAGE WITH YOUR DREAM AUDIENCE</h1>
-          <Button>Get Started</Button>
+          <Button onClick={() => history.push("/signin")}>Get Started</Button>
         </StyledContent>
       </Column>
     </StyledContainer>
@@ -33,7 +33,7 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const StyledContainer = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.3),
@@ -47,6 +47,7 @@ const StyledContainer = styled.div`
 `;
 
 const StyledNavbar = styled.nav`
+  display: block;
   padding-top: 20px;
   position: fixed;
   top: 0;
@@ -56,6 +57,10 @@ const StyledNavbar = styled.nav`
   grid-gap: 2em;
   align-items: center;
   text-align: right;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 
   .nav-item {
     /* margin-left: 20px; */
@@ -86,10 +91,18 @@ const StyledContent = styled.div`
   h1 {
     margin: 0;
     font-weight: bold;
-    font-size: 3em;
+    font-size: 3rem;
+
+    @media screen and (max-width: 768px) {
+      font-size: 1.8rem;
+    }
   }
 
   Button {
     margin-top: 2em;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
 `;

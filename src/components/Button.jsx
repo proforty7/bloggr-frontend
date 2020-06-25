@@ -40,6 +40,10 @@ const StyledButton = styled.button`
   padding: 0.6em 2.5em;
   cursor: pointer;
 
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
+
   &::before {
     content: "";
     position: absolute;
